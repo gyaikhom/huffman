@@ -248,7 +248,7 @@ int read_bit(FILE *f) {
                 if (feof(f))
                     eof_input = 1;
             }
-            bits_in_buffer = bytes_read << 3;
+            bits_in_buffer = (int) (bytes_read << 3);
             current_bit = 0;
         }
     }
@@ -306,6 +306,9 @@ int read_header(FILE *f) {
      bytes_read = fread(&num_active, 1, 1, f);
      if (bytes_read < 1)
          return END_OF_FILE;
+     if (num_active == 0) {
+       num_active = 256;
+     }
 
      allocate_tree();
 
@@ -317,7 +320,9 @@ int read_header(FILE *f) {
      fread(buffer, 1, size, f);
      byte = 0;
      for (i = 1; i <= num_active; ++i) {
-         nodes[i].index = -(buffer[byte++] + 1);
+         int index = buffer[byte++] & 0xFF;
+         index = -(index + 1);
+         nodes[i].index = index;
          j = 0;
          weight = (unsigned char) buffer[byte++];
          while (++j < sizeof(int)) {
