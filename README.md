@@ -1,8 +1,7 @@
 # The Huffman Coding Algorithm
 
 In this project, we implement the Huffman Coding algorithm. For
-further details, please visit my
-[homepage](http://yaikhom.com/2016/05/09/implementing-the-huffman-coding-algorithm.html), or view the NOWEB generated documentation `huffman.pdf`.
+further details, please view the NOWEB generated documentation `huffman.pdf`.
 
 ##Source code
 
